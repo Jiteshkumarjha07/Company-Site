@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
+import SequenceHero from './components/SequenceHero';
 import Marquee from './components/Marquee';
 import VisionMission from './components/VisionMission';
 import TeamDraggable from './components/TeamDraggable';
@@ -63,7 +63,7 @@ function App() {
       <div className="vignette-glow" />
       <Navbar />
       <main>
-        <section data-theme="light"><Hero /></section>
+        <section data-theme="dark"><SequenceHero /></section>
         <section data-theme="light"><Marquee /></section>
         <section data-theme="dark"><VisionMission /></section>
         <section data-theme="light"><TeamDraggable /></section>
