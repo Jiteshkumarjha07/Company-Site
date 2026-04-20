@@ -349,7 +349,7 @@ export default function JoinTheTribe() {
           zIndex: 10,
         }}
       >
-        <button className="cta-btn" onClick={() => window.open('https://alumnest.in', '_blank')}>
+        <button className="cta-btn" onClick={() => window.open('https://forms.gle/1z2kVyt5STG9h8VSA', '_blank')}>
           Request Early Access
         </button>
 
@@ -361,7 +361,7 @@ export default function JoinTheTribe() {
             fontFamily: 'var(--nav-font, monospace)',
           }}
         >
-          alumnest.in &nbsp;|&nbsp; For the Tribe
+          alumnest.co &nbsp;|&nbsp; For the Tribe
         </p>
       </div>
       </div>

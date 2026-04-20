@@ -114,7 +114,7 @@ function App() {
           <FeatureGrid />
         </section>
 
-        <section data-theme="light">
+        <section id="ourteam" data-theme="light">
           <TeamDraggable />
         </section>
 

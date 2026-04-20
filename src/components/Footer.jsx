@@ -30,8 +30,8 @@ export default function Footer() {
           <h2 className="display-text" style={{ fontSize: '48px', fontStyle: 'italic', marginBottom: '32px' }}>
             Ready to build?
           </h2>
-          <a href="mailto:hello@alumnest.in" className="btn-flat primary btn-cta" data-cta="true">
-            hello@alumnest.in <ArrowUpRight size={14} />
+          <a href="mailto:contact@alumnest.co.in" className="btn-flat primary btn-cta" data-cta="true">
+            contact@alumnest.co.in <ArrowUpRight size={14} />
           </a>
         </div>
 
@@ -40,9 +40,36 @@ export default function Footer() {
           <div style={{ gridColumn: 'span 4' }}>
             <span className="label-text" style={{ color: 'var(--text-dim)', display: 'block', marginBottom: '32px' }}>INDEX</span>
             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {['PLATFORM', 'PURPOSE', 'NETWORK', 'LEADERSHIP', 'CONTACT'].map((link) => (
-                <li key={link}>
-                  <a href="#" className="label-text" style={{ fontSize: '10px', color: 'var(--text-primary)', opacity: 0.6 }}>{link}</a>
+              {[
+                { label: 'PLATFORM', id: 'hero' },
+                { label: 'PURPOSE', id: 'vision' },
+                { label: 'NETWORK', id: 'mission' },
+                { label: 'LEADERSHIP', id: 'ourteam' },
+                { label: 'CONTACT', href: 'mailto:contact@alumnest.co.in' }
+              ].map((link) => (
+                <li key={link.label}>
+                  {link.id ? (
+                    <a 
+                      href={`#${link.id}`}
+                      className="label-text" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const el = document.getElementById(link.id);
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                      style={{ fontSize: '10px', color: 'var(--text-primary)', opacity: 0.6, cursor: 'pointer' }}
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <a 
+                      href={link.href} 
+                      className="label-text" 
+                      style={{ fontSize: '10px', color: 'var(--text-primary)', opacity: 0.6 }}
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

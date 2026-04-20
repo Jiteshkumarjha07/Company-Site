@@ -2,7 +2,7 @@
 
 ## 📦 What You've Received
 
-You now have a complete, production-ready animation system for alumnest.in. Here's what's included:
+You now have a complete, production-ready animation system for alumnest.co. Here's what's included:
 
 ### Files Created
 

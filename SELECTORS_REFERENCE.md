@@ -544,7 +544,7 @@
     
     <button class="btn-cta" data-cta>Request Early Access</button>
     
-    <p class="footer-note">alumnest.in | For the Tribe</p>
+    <p class="footer-note">alumnest.co &nbsp;|&nbsp; For the Tribe</p>
   </div>
 </footer>
 ```
