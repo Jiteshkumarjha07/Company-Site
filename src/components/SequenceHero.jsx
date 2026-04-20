@@ -4,6 +4,9 @@ import { useScroll, useTransform, motion } from 'framer-motion';
 const FRAME_COUNT = 240;
 const PRELOAD_BATCH_SIZE = 30; // Preload in batches
 
+const FINAL_TEXT = "ALUMNEST";
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 const SequenceHero = () => {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
@@ -14,6 +17,42 @@ const SequenceHero = () => {
 
   const [images, setImages] = useState([]);
   const [loadedCount, setLoadedCount] = useState(0);
+
+  const [displayText, setDisplayText] = useState("");
+  const [revealComplete, setRevealComplete] = useState(false);
+
+  useEffect(() => {
+    let startTime = Date.now();
+    let interval;
+
+    const tick = () => {
+      const elapsed = Date.now() - startTime;
+      let newText = "";
+      let allLocked = true;
+
+      for (let i = 0; i < FINAL_TEXT.length; i++) {
+        const lockTime = i * 200;
+        if (elapsed >= lockTime) {
+          newText += FINAL_TEXT[i];
+        } else {
+          allLocked = false;
+          newText += CHARS[Math.floor(Math.random() * CHARS.length)];
+        }
+      }
+
+      setDisplayText(newText);
+
+      if (allLocked) {
+        clearInterval(interval);
+        setRevealComplete(true);
+      }
+    };
+
+    tick();
+    interval = setInterval(tick, 60);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Map scroll progress to frame index (1 to 240)
   const frameIndex = useTransform(scrollYProgress, [0, 1], [1, FRAME_COUNT]);
@@ -27,7 +66,7 @@ const SequenceHero = () => {
       const endIdx = Math.min(startIdx + PRELOAD_BATCH_SIZE, FRAME_COUNT);
       for (let i = startIdx; i < endIdx; i++) {
         const img = new Image();
-        img.src = `/frames/${String(i + 1).padStart(4, '0')}.jpg`;
+        img.src = `/se1/ezgif-frame-${String(i + 1).padStart(3, '0')}.jpg`;
         img.onload = () => {
           loadedImages[i] = img;
           loaded++;
@@ -46,7 +85,7 @@ const SequenceHero = () => {
     // Load first batch immediately, rest delayed
     for(let i=0; i<FRAME_COUNT; i++){
         const img = new Image();
-        img.src = `/frames/${String(i + 1).padStart(4, '0')}.jpg`;
+        img.src = `/se1/ezgif-frame-${String(i + 1).padStart(3, '0')}.jpg`;
         img.onload = () => {
             loadedImages[i] = img;
             loaded++;
@@ -109,36 +148,47 @@ const SequenceHero = () => {
   }, [images, frameIndex]);
 
   // Opacities for different text sections
-  const whiteBgOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+  const blackFadeOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]); // Cinematic slow fade from pure black
   const opacity2 = useTransform(scrollYProgress, [0.3, 0.4, 0.5, 0.6], [0, 1, 1, 0]);
   const opacity3 = useTransform(scrollYProgress, [0.6, 0.7, 0.8, 0.9], [0, 1, 1, 0]);
-  const opacity4 = useTransform(scrollYProgress, [0.85, 0.9, 1, 1], [0, 1, 1, 0]);
+  const opacity4 = useTransform(scrollYProgress, [0.85, 0.9, 0.99, 1], [0, 1, 1, 1]);
+  
+  // Opacity for the main ALUMNEST text reveal so it doesn't stay static forever
+  const mainTextOpacity = useTransform(scrollYProgress, [0.2, 0.3], [1, 0]);
 
   return (
-    <div ref={containerRef} style={{ height: '400vh', backgroundColor: '#fff', position: 'relative' }}>
+    <div ref={containerRef} style={{ height: '250vh', backgroundColor: '#000', position: 'relative' }}>
       
-      <div style={{ position: 'sticky', top: 0, left: 0, height: '100vh', width: '100%', overflow: 'hidden', background: '#000' }}>
-        <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: '100%' }}></canvas>
+      <div className="particle-bg hero-canvas" style={{ position: 'sticky', top: 0, left: 0, height: '100vh', width: '100%', overflow: 'hidden', background: '#000' }}>
+        <canvas ref={canvasRef} className="hero-particle-canvas" style={{ display: 'block', width: '100%', height: '100%' }}></canvas>
         
-        {/* Semi-transparent overlay to aid text readability if needed */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.5), transparent, rgba(0,0,0,0.5))', pointerEvents: 'none' }}></div>
+        {/* Minimal overlay to maintain absolute sequence visibility while assisting text contrast */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.1), transparent, rgba(0,0,0,0.1))', pointerEvents: 'none' }}></div>
         
-        {/* The White Background Fade Overlay */}
-        <motion.div style={{ opacity: whiteBgOpacity, position: 'absolute', inset: 0, backgroundColor: '#fff', pointerEvents: 'none', zIndex: 10 }} />
+        {/* Cinematic Black Fade Overlay */}
+        <motion.div style={{ opacity: blackFadeOpacity, position: 'absolute', inset: 0, backgroundColor: '#000', pointerEvents: 'none', zIndex: 10 }} />
 
-        {/* Story Beat 1 (Fixed & Persistent) */}
-        <div 
-          style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 20, mixBlendMode: 'difference', color: '#fff' }}
+        {/* Story Beat 1 (Now Fades Out) */}
+        <motion.div 
+          style={{ opacity: mainTextOpacity, position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 20, mixBlendMode: 'difference', color: '#fff' }}
         >
           <div style={{ textAlign: 'center', padding: '0 2rem' }}>
-            <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)', fontWeight: 600, letterSpacing: '-0.02em', marginBottom: '1rem', color: '#fff' }}>
-              Alumnest
-            </h1>
-            <p style={{ fontSize: '1.125rem', maxWidth: '600px', margin: '0 auto', lineHeight: 1.6, color: '#fff' }}>
-              For the tribe.
-            </p>
+            <motion.h1 
+              initial={{ letterSpacing: '0.35em' }}
+              animate={{ letterSpacing: revealComplete ? '-0.02em' : '0.35em' }}
+              transition={{ duration: 0.8, ease: 'easeInOut' }}
+              style={{ fontSize: 'clamp(48px, 8vw, 96px)', fontWeight: 300, marginBottom: '1rem', color: '#fff' }}>
+              {displayText}
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={revealComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
+              style={{ fontSize: '1.125rem', maxWidth: '600px', margin: '0 auto', lineHeight: 1.6, color: '#fff' }}>
+              Rebuilding India's alumni connections
+            </motion.p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Story Beat 2 */}
         <motion.div 
@@ -176,7 +226,7 @@ const SequenceHero = () => {
             <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)', fontWeight: 600, letterSpacing: '-0.02em', marginBottom: '2rem' }}>
               Experience True Elegance
             </h2>
-            <button style={{ background: 'linear-gradient(135deg, #0050FF 0%, #00D6FF 100%)', color: '#fff', padding: '16px 32px', borderRadius: '30px', fontSize: '1rem', fontWeight: 500, border: 'none', cursor: 'pointer', boxShadow: '0 10px 30px rgba(0, 214, 255, 0.3)', pointerEvents: 'auto' }}>
+            <button className="btn-cta" data-cta="true" style={{ background: 'linear-gradient(135deg, #0050FF 0%, #00D6FF 100%)', color: '#fff', padding: '16px 32px', borderRadius: '30px', fontSize: '1rem', fontWeight: 500, border: 'none', boxShadow: '0 10px 30px rgba(0, 214, 255, 0.3)', pointerEvents: 'auto' }}>
               Discover More
             </button>
           </div>

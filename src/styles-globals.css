@@ -1,0 +1,198 @@
+/* ========================================
+   ALUMNEST GLOBAL STYLES + CURSOR SETUP
+   ======================================== */
+
+/* 1. CURSOR SETUP — Hide default, prepare for custom */
+* {
+  cursor: none !important;
+}
+
+/* Exceptions for native form elements */
+input,
+textarea,
+select,
+[contenteditable] {
+  cursor: text !important;
+}
+
+button {
+  cursor: none !important; /* Custom cursor will handle button states */
+}
+
+/* 2. CUSTOM CURSOR CANVAS — Full viewport overlay */
+#custom-cursor-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* 3. ANIMATION KEYFRAMES — Global animations */
+
+/* Particle burst animation */
+@keyframes particle-burst {
+  0% {
+    opacity: 0.8;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(0.3);
+  }
+}
+
+/* Pulsing glow */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(239, 159, 39, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(239, 159, 39, 0);
+  }
+}
+
+/* Shimmer effect for borders */
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+/* Floating idle animation */
+@keyframes float-idle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Character scramble (prepared for text effects) */
+@keyframes scramble-char {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* 4. INTERACTIVE ELEMENT PREP */
+
+/* CTA buttons — ready for magnetic cursor & pulse */
+.btn-cta {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: visible; /* Allow pulse shadow to expand */
+}
+
+.btn-cta:hover {
+  transform: scale(1.02);
+}
+
+/* Team cards — ready for magnetic attraction */
+.team-card {
+  position: relative;
+  will-change: transform;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Particle/Canvas backgrounds */
+.particle-bg,
+.particle-container,
+.hero-canvas,
+.stats-canvas,
+.building-canvas,
+.map-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* 5. GLASS MORPHISM EFFECT (for future feature cards) */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 6. DARK MODE SUPPORT */
+body.dark-mode {
+  background-color: #0d0f14;
+  color: #ffffff;
+}
+
+body.light-mode {
+  background-color: #ffffff;
+  color: #0d0f14;
+}
+
+/* 7. INTERSECTION OBSERVER PREP */
+[data-scroll-animate] {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+/* Magnetic attraction prep — applied dynamically */
+[data-magnetic] {
+  position: relative;
+  will-change: transform;
+}
+
+/* 8. PERFORMANCE OPTIMIZATIONS */
+.particle-bg canvas,
+.hero-canvas canvas,
+.building-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 9. VIGNETTE GLOW — Already in your app.jsx */
+.vignette-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  z-index: 1;
+}
+
+/* 10. SMOOTH SCROLL ADJUSTMENTS FOR LENIS */
+html {
+  scroll-behavior: auto; /* Lenis handles smoothing */
+}
+
+/* Prevent layout shift */
+html {
+  overflow-y: scroll;
+}

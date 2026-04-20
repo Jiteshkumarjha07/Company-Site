@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumnest Cursor Test</title>
+  <style>
+    /* Global Cursor Setup */
+    * {
+      cursor: none !important;
+    }
+
+    input,
+    textarea,
+    select,
+    [contenteditable] {
+      cursor: text !important;
+    }
+
+    button {
+      cursor: none !important;
+    }
+
+    /* Canvas Setup */
+    #custom-cursor-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0d0f14;
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      padding: 2rem 0;
+      border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 4rem;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    h2 {
+      font-size: 32px;
+      margin: 3rem 0 1.5rem;
+      font-weight: 500;
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 1rem;
+    }
+
+    /* CTA Button Test */
+    .btn-cta {
+      padding: 12px 28px;
+      border: 1.5px solid #EF9F27;
+      border-radius: 8px;
+      background: transparent;
+      color: white;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      cursor: none !important;
+      transition: all 0.3s ease;
+      margin: 2rem 0;
+      font-size: 14px;
+    }
+
+    .btn-cta:hover {
+      border-color: #FFB850;
+      box-shadow: 0 0 20px rgba(239, 159, 39, 0.3);
+    }
+
+    /* Team Card Test */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin: 2rem 0;
+    }
+
+    .team-card {
+      position: relative;
+      padding: 1.5rem;
+      border: 0.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+      will-change: transform;
+      cursor: none !important;
+    }
+
+    .team-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .team-card-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7F77DD 0%, #534AB7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 24px;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .team-card-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      margin: 0 0 0.5rem;
+    }
+
+    .team-card-role {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0;
+    }
+
+    /* Canvas Section Test */
+    .particle-bg {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 4rem 0;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+    }
+
+    .particle-bg canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .canvas-label {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Status Check */
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 2rem 0;
+    }
+
+    .status-item {
+      padding: 1rem;
+      border: 0.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .status-item.pass {
+      border-color: #5DCAA5;
+      background: rgba(93, 202, 165, 0.05);
+      color: #5DCAA5;
+    }
+
+    .status-item.fail {
+      border-color: #E24B4A;
+      background: rgba(226, 75, 74, 0.05);
+      color: #E24B4A;
+    }
+
+    .status-item.pending {
+      border-color: #EF9F27;
+      background: rgba(239, 159, 39, 0.05);
+      color: #EF9F27;
+    }
+
+    .status-label {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Instructions */
+    .instructions {
+      background: rgba(127, 119, 221, 0.1);
+      border: 0.5px solid rgba(127, 119, 221, 0.3);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .instructions code {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Monaco', monospace;
+      font-size: 12px;
+    }
+
+    .instructions ol {
+      margin-left: 1.5rem;
+    }
+
+    .instructions li {
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 4rem 0;
+      border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Custom Cursor Canvas (will be filled by JavaScript) -->
+  <canvas id="custom-cursor-canvas"></canvas>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>Alumnest Cursor Test</h1>
+      <p class="subtitle">Verify custom cursor implementation before Antigravity prompts</p>
+    </header>
+
+    <!-- Status Checks -->
+    <h2>Status Checks</h2>
+    <div class="status-grid">
+      <div class="status-item pass">
+        <div class="status-label">✓ Cursor Hidden</div>
+        <div>cursor: none applied</div>
+      </div>
+      <div class="status-item pending">
+        <div class="status-label">? Custom Cursor</div>
+        <div id="cursor-check">Checking...</div>
+      </div>
+      <div class="status-item pending">
+        <div class="status-label">? CTA Button</div>
+        <div>Should turn purple on hover</div>
+      </div>
+      <div class="status-item pending">
+        <div class="status-label">? Team Card</div>
+        <div>Should turn amber on hover</div>
+      </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="instructions">
+      <strong>Test Instructions:</strong>
+      <ol>
+        <li>You should see a white dot + ring cursor (not the OS cursor)</li>
+        <li>Hover over the <strong>CTA Button</strong> below — ring should turn purple and dot disappears</li>
+        <li>Hover over any <strong>Team Card</strong> — ring should turn amber with orbit indicator</li>
+        <li>Hover over the <strong>Canvas Section</strong> — ring should turn teal with 3 orbiting dots</li>
+        <li>Click anywhere — you should see a purple ripple expanding from click point</li>
+        <li>Move cursor fast — you should see a faint white trail behind the ring</li>
+        <li>If all checks pass ✓ you're ready for Antigravity prompts!</li>
+      </ol>
+    </div>
+
+    <!-- CTA Button Test -->
+    <h2>1. CTA Button Test</h2>
+    <p>Hover over this button. The cursor ring should turn purple and the dot should disappear.</p>
+    <button class="btn-cta" data-cta>Request Early Access</button>
+
+    <!-- Team Cards Test -->
+    <h2>2. Team Cards Test</h2>
+    <p>Hover over any card. The cursor ring should turn amber with a small orbit indicator.</p>
+    <div class="team-grid">
+      <div class="team-card" data-magnetic>
+        <div class="team-card-avatar">JJ</div>
+        <h3 class="team-card-name">Jitesh Jha</h3>
+        <p class="team-card-role">CEO & Founder</p>
+      </div>
+      <div class="team-card" data-magnetic>
+        <div class="team-card-avatar">DY</div>
+        <h3 class="team-card-name">Dadan Yadav</h3>
+        <p class="team-card-role">COO & Co-Founder</p>
+      </div>
+      <div class="team-card" data-magnetic>
+        <div class="team-card-avatar">LK</div>
+        <h3 class="team-card-name">Lucky Kumar</h3>
+        <p class="team-card-role">CDO & Co-Founder</p>
+      </div>
+    </div>
+
+    <!-- Canvas Section Test -->
+    <h2>3. Canvas/Particle Section Test</h2>
+    <p>Hover over the box below. The cursor ring should turn teal with 3 orbiting dots.</p>
+    <div class="particle-bg hero-canvas" data-scroll-animate>
+      <div class="canvas-label">Canvas Section (Ring should turn teal)</div>
+    </div>
+
+    <!-- Click Ripple Test -->
+    <h2>4. Click Ripple Test</h2>
+    <p>Click anywhere on the page. You should see a purple ripple expand from your click point.</p>
+
+    <!-- Trail Test -->
+    <h2>5. Trail Effect Test</h2>
+    <p>Move your cursor quickly across the page. You should see a faint white trail following the ring.</p>
+
+    <!-- Text Hover Test -->
+    <h2>6. Text Hover Test</h2>
+    <p>
+      Hover over this text or other headings. The cursor ring stays white (default state), but
+      increases opacity slightly when over text.
+    </p>
+
+    <!-- Color Reference -->
+    <h2>Cursor Color Reference</h2>
+    <p>The cursor ring changes color depending on what you're hovering:</p>
+    <div class="status-grid">
+      <div class="status-item" style="border-color: white; color: white;">
+        <div class="status-label">White</div>
+        <div>Default — text, nav, general content</div>
+      </div>
+      <div class="status-item" style="border-color: #7F77DD; color: #7F77DD;">
+        <div class="status-label">Purple</div>
+        <div>CTA Buttons (.btn-cta)</div>
+      </div>
+      <div class="status-item" style="border-color: #EF9F27; color: #EF9F27;">
+        <div class="status-label">Amber</div>
+        <div>Team Cards (.team-card, [data-magnetic])</div>
+      </div>
+      <div class="status-item" style="border-color: #5DCAA5; color: #5DCAA5;">
+        <div class="status-label">Teal</div>
+        <div>Canvas Areas (.hero-canvas, .stats-canvas)</div>
+      </div>
+    </div>
+
+    <!-- Troubleshooting -->
+    <h2>Troubleshooting</h2>
+    <div class="instructions">
+      <strong>Cursor not appearing?</strong>
+      <ul style="margin-left: 1.5rem;">
+        <li>Check DevTools → Elements → Look for <code>&lt;canvas id="custom-cursor-canvas"&gt;</code></li>
+        <li>Check DevTools → Console for any JavaScript errors</li>
+        <li>Verify <code>cursor: none;</code> is applied globally in CSS</li>
+      </ul>
+    </div>
+
+    <div class="instructions">
+      <strong>Cursor not changing colors on hover?</strong>
+      <ul style="margin-left: 1.5rem;">
+        <li>Verify elements have correct classes: <code>.btn-cta</code>, <code>.team-card</code>, etc.</li>
+        <li>Check that elements have <code>data-cta</code> or <code>data-magnetic</code> attributes</li>
+        <li>Inspect elements in DevTools to confirm classes are present</li>
+      </ul>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        Once all tests pass ✓, you're ready to implement Antigravity prompts!
+      </p>
+      <p style="margin-top: 1rem;">
+        Refer to INTEGRATION_GUIDE.md and SELECTORS_REFERENCE.md for next steps.
+      </p>
+    </footer>
+  </div>
+
+  <!-- Custom Cursor Script (for testing without React) -->
+  <script>
+    const canvasEl = document.getElementById('custom-cursor-canvas');
+    const ctx = canvasEl.getContext('2d');
+
+    canvasEl.width = window.innerWidth;
+    canvasEl.height = window.innerHeight;
+
+    const mouse = { x: 0, y: 0 };
+    const cursor = {
+      primaryPos: { x: 0, y: 0 },
+      secondaryPos: { x: 0, y: 0 },
+      state: 'default',
+      trailPositions: [],
+      ripples: [],
+    };
+
+    // Mouse tracking
+    document.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      cursor.targetPos = { x: e.clientX, y: e.clientY };
+
+      // State detection
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      if (!el) return;
+
+      if (el.closest('.btn-cta') || el.closest('[data-cta]')) {
+        cursor.state = 'cta';
+      } else if (el.closest('.team-card') || el.closest('[data-magnetic]')) {
+        cursor.state = 'team';
+      } else if (el.closest('.particle-bg') || el.closest('.hero-canvas')) {
+        cursor.state = 'canvas';
+      } else if (el.tagName === 'P' || el.tagName === 'H1' || el.tagName === 'H2') {
+        cursor.state = 'text';
+      } else {
+        cursor.state = 'default';
+      }
+    });
+
+    // Click ripple
+    document.addEventListener('click', (e) => {
+      cursor.ripples.push({
+        x: e.clientX,
+        y: e.clientY,
+        radius: 0,
+        maxRadius: 80,
+        opacity: 0.5,
+        startTime: Date.now(),
+        duration: 0.4,
+      });
+    });
+
+    // Resize
+    window.addEventListener('resize', () => {
+      canvasEl.width = window.innerWidth;
+      canvasEl.height = window.innerHeight;
+    });
+
+    // Animation loop
+    function animate() {
+      ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+
+      cursor.targetPos = cursor.targetPos || { x: mouse.x, y: mouse.y };
+
+      // Lerp
+      cursor.primaryPos.x += (cursor.targetPos.x - cursor.primaryPos.x) * 0.15;
+      cursor.primaryPos.y += (cursor.targetPos.y - cursor.primaryPos.y) * 0.15;
+      cursor.secondaryPos.x += (cursor.targetPos.x - cursor.secondaryPos.x) * 0.07;
+      cursor.secondaryPos.y += (cursor.targetPos.y - cursor.secondaryPos.y) * 0.07;
+
+      // Primary dot
+      const primarySize = cursor.state === 'cta' ? 0 : 10;
+      if (primarySize > 0) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.beginPath();
+        ctx.arc(cursor.primaryPos.x, cursor.primaryPos.y, primarySize / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Ring
+      const ringSize = cursor.state === 'cta' ? 64 : 36;
+      let ringColor = 'rgba(255, 255, 255, 0.5)';
+      if (cursor.state === 'cta') ringColor = 'rgba(127, 119, 221, 0.25)';
+      if (cursor.state === 'team') ringColor = 'rgba(239, 159, 39, 0.5)';
+      if (cursor.state === 'canvas') ringColor = 'rgba(93, 202, 165, 0.5)';
+
+      ctx.strokeStyle = ringColor;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(cursor.secondaryPos.x, cursor.secondaryPos.y, ringSize / 2, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Canvas orbit
+      if (cursor.state === 'canvas') {
+        const time = Date.now() * 0.001;
+        const orbitRadius = 12;
+        for (let i = 0; i < 3; i++) {
+          const angle = (time * Math.PI * 2) + (i * (Math.PI * 2)) / 3;
+          const dotX = cursor.secondaryPos.x + Math.cos(angle) * orbitRadius;
+          const dotY = cursor.secondaryPos.y + Math.sin(angle) * orbitRadius;
+          ctx.fillStyle = 'rgba(93, 202, 165, 0.6)';
+          ctx.beginPath();
+          ctx.arc(dotX, dotY, 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // Ripples
+      cursor.ripples = cursor.ripples.filter((ripple) => {
+        const elapsed = (Date.now() - ripple.startTime) / 1000;
+        const progress = elapsed / ripple.duration;
+
+        if (progress >= 1) return false;
+
+        ripple.radius = ripple.maxRadius * progress;
+        ripple.opacity = 0.5 * (1 - progress);
+
+        ctx.strokeStyle = `rgba(239, 159, 39, ${ripple.opacity})`;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
+        ctx.stroke();
+
+        return true;
+      });
+
+      // Trail
+      if (
+        Math.hypot(
+          cursor.secondaryPos.x - (cursor.trailPositions[0]?.x || 0),
+          cursor.secondaryPos.y - (cursor.trailPositions[0]?.y || 0)
+        ) > 3
+      ) {
+        cursor.trailPositions.push({
+          x: cursor.secondaryPos.x,
+          y: cursor.secondaryPos.y,
+        });
+
+        if (cursor.trailPositions.length > 20) {
+          cursor.trailPositions.shift();
+        }
+
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i < cursor.trailPositions.length - 1; i++) {
+          const pos = cursor.trailPositions[i];
+          const nextPos = cursor.trailPositions[i + 1];
+          const opacity = (1 - i / cursor.trailPositions.length) * 0.15;
+
+          ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+          ctx.beginPath();
+          ctx.moveTo(pos.x, pos.y);
+          ctx.lineTo(nextPos.x, nextPos.y);
+          ctx.stroke();
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Update status
+    document.getElementById('cursor-check').textContent = 'Canvas rendering ✓';
+  </script>
+</body>
+</html>

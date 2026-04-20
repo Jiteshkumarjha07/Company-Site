@@ -1,6 +1,13 @@
 import React from 'react';
 
-export default function Navbar() {
+export default function Navbar({ activeSection }) {
+  const navItems = [
+    { id: 'vision', label: 'VISION' },
+    { id: 'mission', label: 'MISSION' },
+    { id: 'ecosystem', label: 'ECOSYSTEM' },
+    { id: 'metrics', label: 'METRICS' },
+  ];
+
   return (
     <nav style={{
       position: 'fixed',
@@ -24,16 +31,49 @@ export default function Navbar() {
         ALUMNEST™
       </div>
 
-      {/* Center: Minimalist text */}
-      <div style={{ display: 'none' }}></div> {/* Intentionally blank for a cleaner layout */}
-
-      {/* Right: Menu */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', cursor: 'pointer' }}>
-        <span className="label-text" style={{ fontSize: '11px', letterSpacing: '0.15em', color: '#fff' }}>MENU</span>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-          <div style={{ width: '20px', height: '1.5px', backgroundColor: '#fff', opacity: 0.8 }}></div>
-          <div style={{ width: '20px', height: '1.5px', backgroundColor: '#fff', opacity: 0.8 }}></div>
-        </div>
+      {/* Right: Section Links */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+        {navItems.map((item) => {
+          const isActive = activeSection === item.id;
+          return (
+            <div 
+              key={item.id}
+              onClick={() => {
+                const el = document.getElementById(item.id);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              style={{ 
+                position: 'relative',
+                cursor: 'pointer',
+                padding: '4px 0'
+              }}
+            >
+              <span 
+                className="label-text" 
+                style={{ 
+                  fontSize: '10px', 
+                  letterSpacing: '0.15em', 
+                  color: isActive ? '#fff' : 'rgba(255,255,255,0.4)',
+                  fontWeight: isActive ? '600' : '400',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                {item.label}
+              </span>
+              <div 
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  width: isActive ? '100%' : '0%',
+                  height: '1px',
+                  backgroundColor: '#fff',
+                  transition: 'width 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
     </nav>
   );

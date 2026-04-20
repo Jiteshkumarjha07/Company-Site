@@ -30,7 +30,7 @@ export default function Footer() {
           <h2 className="display-text" style={{ fontSize: '48px', fontStyle: 'italic', marginBottom: '32px' }}>
             Ready to build?
           </h2>
-          <a href="mailto:hello@alumnest.in" className="btn-flat primary">
+          <a href="mailto:hello@alumnest.in" className="btn-flat primary btn-cta" data-cta="true">
             hello@alumnest.in <ArrowUpRight size={14} />
           </a>
         </div>
