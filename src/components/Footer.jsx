@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const socials = [
   { name: 'LinkedIn', handle: '@alumnest', href: '#' },
@@ -33,6 +34,34 @@ export default function Footer() {
           <a href="mailto:contact@alumnest.co.in" className="btn-flat primary btn-cta" data-cta="true">
             contact@alumnest.co.in <ArrowUpRight size={14} />
           </a>
+          <p style={{
+            marginTop: '18px',
+            fontSize: '13px',
+            color: 'var(--text-dim)',
+            fontFamily: '"Times New Roman", Times, serif',
+            fontWeight: 400,
+            lineHeight: 1.7,
+            letterSpacing: '0.01em',
+          }}>
+            To know how we handle your information, view our{' '}
+            <Link
+              to="/privacypolicy"
+              style={{
+                color: 'var(--text-primary)',
+                fontFamily: '"Times New Roman", Times, serif',
+                fontWeight: 700,
+                textDecoration: 'underline',
+                textDecorationThickness: '1px',
+                textUnderlineOffset: '4px',
+                fontSize: '13px',
+                transition: 'opacity 0.25s ease',
+              }}
+              onMouseEnter={e => e.currentTarget.style.opacity = '0.55'}
+              onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+            >
+              Privacy Policy
+            </Link>.
+          </p>
         </div>
 
         {/* Right: Socials & Links */}
