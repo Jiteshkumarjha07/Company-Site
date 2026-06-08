@@ -45,7 +45,7 @@ export default function Footer() {
           }}>
             To know how we handle your information, view our{' '}
             <Link
-              to="/privacypolicy"
+              to="/Privacy_Policy"
               style={{
                 color: 'var(--text-primary)',
                 fontFamily: '"Times New Roman", Times, serif',

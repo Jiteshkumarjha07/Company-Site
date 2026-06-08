@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
       zIndex: 9999,
     }}>
       <iframe
-        src="/Alumnest_Privacy_Policy_v2.pdf"
+        src="/Alumnest_Privacy_Policy.pdf"
         style={{
           width: '100%',
           height: '100%',
