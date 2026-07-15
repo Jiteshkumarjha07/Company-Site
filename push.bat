@@ -1,0 +1,9 @@
+@echo off
+echo Adding changes...
+git add -A
+echo Committing...
+git commit -m "feat: implement Next.js site with PDF redirects and terms"
+echo Pushing to GitHub...
+git push origin main
+echo Done!
+pause
