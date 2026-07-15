@@ -14,7 +14,7 @@ export const VisionBlock = () => (
     justifyContent: 'center'
   }}>
     <div style={{ marginBottom: '24px' }}>
-      <span className="label-text" style={{ color: 'var(--text-dim)' }}>/ 02 — VISION</span>
+      <span className="marker-label" style={{ color: 'var(--text-dim)' }}>02 — Vision</span>
     </div>
     <div>
       <motion.h2 
@@ -47,7 +47,7 @@ export const MissionBlock = () => (
     alignItems: 'center'
   }}>
     <div style={{ gridColumn: 'span 4' }}>
-      <span className="label-text" style={{ color: 'var(--text-dim)' }}>/ 03 — MISSION</span>
+      <span className="marker-label" style={{ color: 'var(--text-dim)' }}>03 — Mission</span>
     </div>
     <div style={{ gridColumn: 'span 5' }}>
       <motion.div
@@ -80,7 +80,7 @@ export const MissionBlock = () => (
 
     <div style={{ gridColumn: 'span 3', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
       <div style={{ textAlign: 'right', borderTop: '1px solid var(--border-light)', paddingTop: '24px', width: '100%' }}>
-        <span className="display-text" style={{ fontSize: '64px', fontStyle: 'italic' }}>50+</span>
+        <span className="display-text" style={{ fontSize: '64px', fontStyle: 'italic' }}>500+</span>
         <span className="label-text" style={{ display: 'block', fontSize: '9px' }}>INSTITUTIONS ENROLLED</span>
       </div>
     </div>

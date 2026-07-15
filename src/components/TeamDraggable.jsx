@@ -295,7 +295,7 @@ export default function TeamDraggable() {
 
       {/* Section label */}
       <div style={{ position: 'absolute', top: '120px', left: '48px', zIndex: 100 }}>
-        <span className="label-text" style={{ color: 'var(--text-dim)' }}>/ 04 — ECOSYSTEM</span>
+        <span className="marker-label" style={{ color: 'var(--text-dim)' }}>06 — Team</span>
       </div>
 
       <div style={{

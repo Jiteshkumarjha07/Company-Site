@@ -3,40 +3,39 @@ import gsap from 'gsap';
 
 const STATS = [
   {
-    label: 'Universities',
-    displayNum: '1,000',
-    rawValue: 1000,
+    label: 'Communities',
+    displayNum: '10,000',
+    rawValue: 10000,
     suffix: '+',
     color: '#EF9F27',
-    desc: 'Institutions across India covered by the Alumnest network.',
-    barPct: 30,
+    desc: 'Alumni communities powered on the platform, each running on trust.',
+    barPct: 55,
   },
   {
-    label: 'Colleges',
-    displayNum: '42,000',
-    rawValue: 42000,
-    suffix: '+',
-    color: '#7F77DD',
-    desc: 'Affiliated colleges poised to connect their alumni digitally.',
-    barPct: 60,
-  },
-  {
-    label: 'Alumni Pool',
-    displayNum: '500M',
-    rawValue: 500,   // We count to 500 (display as "500M")
+    label: 'Alumni',
+    displayNum: '2',
+    rawValue: 2,
     suffix: 'M+',
-    color: '#1D9E75',
-    desc: 'Potential alumni members ready to be unified on one platform.',
-    barPct: 85,
+    color: '#7F77DD',
+    desc: 'Active alumni unified across the top networks in one place.',
+    barPct: 80,
   },
   {
-    label: 'Market Size',
-    displayNum: '$5B',
-    rawValue: 5,     // Count to 5 (display as "$5B")
-    suffix: 'B+',
-    prefix: '$',
+    label: 'Institutions',
+    displayNum: '500',
+    rawValue: 500,
+    suffix: '+',
+    color: '#1D9E75',
+    desc: 'Academic institutions served across the world.',
+    barPct: 40,
+  },
+  {
+    label: 'Sources Tracked',
+    displayNum: '300',
+    rawValue: 300,
+    suffix: 'K+',
     color: '#ffffff',
-    desc: 'Total addressable alumni engagement market across India.',
+    desc: 'Media sources scanned by AI to surface alumni news in real time.',
     barPct: 100,
   },
 ];
@@ -302,7 +301,7 @@ export default function Stats() {
             letterSpacing: '0.15em',
             color: 'rgba(255,255,255,0.4)',
           }}>
-            / 05 — METRICS
+            ( 07 ) — Metrics
           </span>
           <h2 style={{
             fontSize: 'clamp(2.5rem, 5vw, 4rem)',
@@ -320,7 +319,7 @@ export default function Stats() {
             lineHeight: 1.6,
             marginTop: '12px',
           }}>
-            The numbers that define the Alumnest opportunity in India's higher education landscape.
+            The numbers behind the world's most trusted, structured alumni ecosystem.
           </p>
         </div>
 

@@ -124,6 +124,26 @@ h1, h2, h3 {
   color: var(--text-dim);
 }
 
+/* ─── Parenthetical section marker (Penguin-style) ─── */
+.marker-label {
+  font-family: var(--nav-font);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.marker-label::before { content: '( '; }
+.marker-label::after  { content: ' )'; }
+
+/* ─── Scroll cue ───────────────────────────────── */
+.scroll-cue {
+  font-family: var(--nav-font);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
 /* ─── Section Divider ──────────────────────────── */
 .section-rule {
   width: 100%;

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, useScroll, useSpring, useTransform, useVelocity, useAnimationFrame, useMotionValue } from 'framer-motion';
 
 export default function Marquee() {
-  const text = "ALUMNI INTELLIGENCE — STRUCTURED NETWORKS — GLOBAL CONNECT — INDIA FIRST — ";
+  const text = "ALUMNI INTELLIGENCE — COMMUNITIES — MENTORSHIP — GIVING — EVENTS & REUNIONS — TRUST — ";
   const repeatedText = text.repeat(20);
   
   const baseX = useMotionValue(0);

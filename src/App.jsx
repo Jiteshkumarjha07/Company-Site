@@ -5,14 +5,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 import CustomCursor from './components/CustomCursor'; // NEW: Import custom cursor
+import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
-import SequenceHero from './components/SequenceHero';
+import Hero from './components/Hero';
 import Marquee from './components/Marquee';
 import VisionMission, { VisionBlock, MissionBlock } from './components/VisionMission';
-import SequenceMission from './components/SequenceMission';
+import Platform from './components/Platform';
 import UnificationHero from './components/UnificationHero';
 import TeamDraggable from './components/TeamDraggable';
-import FeatureGrid from './components/FeatureGrid';
+import Ecosystem from './components/Ecosystem';
 import Stats from './components/Stats';
 import JoinTheTribe from './components/JoinTheTribe';
 import Footer from './components/Footer';
@@ -86,12 +87,13 @@ function App() {
     <>
       {/* NEW: Custom cursor overlay (must be at root level) */}
       <CustomCursor />
-      
+      <Preloader />
+
       <div className="vignette-glow" />
       <Navbar activeSection={activeSection} />
       <main>
         <section id="hero" data-theme="dark">
-          <SequenceHero />
+          <Hero />
         </section>
         <section data-theme="light">
           <Marquee />
@@ -102,16 +104,16 @@ function App() {
         <section id="mission" data-theme="dark">
           <MissionBlock />
         </section>
-        <section id="mission-seq" data-theme="dark">
-          <SequenceMission />
+        <section id="platform" data-theme="dark">
+          <Platform />
         </section>
 
         <section id="unification">
           <UnificationHero />
         </section>
 
-        <section id="ecosystem">
-          <FeatureGrid />
+        <section id="ecosystem" data-theme="dark">
+          <Ecosystem />
         </section>
 
         <section id="ourteam" data-theme="light">

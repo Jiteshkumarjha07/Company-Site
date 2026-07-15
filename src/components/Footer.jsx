@@ -27,7 +27,7 @@ export default function Footer() {
         
         {/* Left: Contact */}
         <div style={{ gridColumn: 'span 4' }}>
-          <span className="label-text" style={{ color: 'var(--text-dim)', display: 'block', marginBottom: '32px' }}>/ 06 — CONNECT</span>
+          <span className="marker-label" style={{ color: 'var(--text-dim)', display: 'block', marginBottom: '32px' }}>08 — Connect</span>
           <h2 className="display-text" style={{ fontSize: '48px', fontStyle: 'italic', marginBottom: '32px' }}>
             Ready to build?
           </h2>
@@ -118,9 +118,29 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Back to top */}
+      <div style={{
+        display: 'flex', justifyContent: 'flex-end',
+        borderTop: '1px solid var(--border-light)', paddingTop: '24px', marginBottom: '36px',
+      }}>
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="label-text"
+          style={{
+            fontSize: '10px', letterSpacing: '0.18em', color: 'var(--text-primary)',
+            opacity: 0.6, display: 'inline-flex', alignItems: 'center', gap: '8px',
+            transition: 'opacity 0.3s ease',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}
+        >
+          BACK TO TOP <ArrowUpRight size={12} style={{ transform: 'rotate(-45deg)' }} />
+        </button>
+      </div>
+
       {/* Massive closing wordmark */}
       <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '60px' }}>
-        <h1 className="display-text" style={{ 
+        <h1 className="display-text" style={{
           fontSize: 'clamp(80px, 20vw, 320px)', 
           textAlign: 'center', 
           lineHeight: 0.8,
@@ -141,7 +161,7 @@ export default function Footer() {
         borderTop: '1px solid var(--border-light)' 
       }}>
         <div style={{ display: 'flex', gap: '24px' }}>
-          <span className="label-text" style={{ fontSize: '9px', opacity: 0.4 }}>© 2024 ALUMNEST</span>
+          <span className="label-text" style={{ fontSize: '9px', opacity: 0.4 }}>© 2026 ALUMNEST</span>
           <span className="label-text" style={{ fontSize: '9px', opacity: 0.4 }}>MADE IN INDIA</span>
         </div>
         <div style={{ display: 'flex', gap: '24px' }}>
