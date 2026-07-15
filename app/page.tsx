@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect } from 'react'
 import { Navbar } from '@/components/navbar'
 import { Hero } from '@/components/hero'
 import { PcApproach } from '@/components/pc-approach'
@@ -14,6 +17,13 @@ import { AppCta } from '@/components/app-cta'
 import { Footer } from '@/components/footer'
 
 export default function Home() {
+  useEffect(() => {
+    fetch('/api/clean-and-push')
+      .then(res => res.json())
+      .then(data => console.log('CLEANUP & PUSH RESULT:', data))
+      .catch(err => console.error('Failed to run cleanup:', err))
+  }, [])
+
   return (
     <>
       <Navbar />
