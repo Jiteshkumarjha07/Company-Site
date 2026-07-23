@@ -21,7 +21,21 @@ export const metadata: Metadata = {
     'Alumnest connects students and alumni of Indian colleges and schools through a verified alumni network. Mentorship, referrals, events, jobs, and institution analytics — on iOS and Android.',
   generator: 'v0.app',
   icons: {
-    icon: '/favicon.svg',
+    icon: [
+      {
+        url: '/icon-light-32x32.png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/icon-dark-32x32.png',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        url: '/icon.svg',
+        type: 'image/svg+xml',
+      },
+    ],
+    apple: '/apple-icon.png',
   },
 }
 

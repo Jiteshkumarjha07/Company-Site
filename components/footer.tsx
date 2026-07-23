@@ -63,8 +63,7 @@ export function Footer({
             { label: 'Features', href: '/#features' },
             { label: 'The App', href: '/#app' },
             { label: 'Roadmap', href: '/#roadmap' },
-            { label: 'Privacy Policy', href: '/privacy_policy' },
-            { label: 'Terms of Use', href: '/terms_of_service' },
+            { label: 'Privacy Policy', href: '#' },
           ].map((link) => (
             <a
               key={link.label}
