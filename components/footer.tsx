@@ -65,6 +65,7 @@ export function Footer({
             { label: 'Roadmap', href: '/#roadmap' },
             { label: 'Privacy Policy', href: '/privacy-policy' },
             { label: 'Terms of Service', href: '/terms-of-service' },
+            { label: 'Child Safety', href: '/child-safety-standards' },
             { label: 'Delete Account', href: '/delete-account' },
           ].map((link) => (
             <a
