@@ -3,6 +3,8 @@ import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 import { SubpageHeader } from '@/components/subpage-header'
 import { LegalContent, type LegalSection } from '@/components/legal-content'
+import { CoveredAppsNotice } from '@/components/covered-apps-notice'
+import { COVERED_APPS } from '@/lib/covered-apps'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | Alumnest',
@@ -946,6 +948,7 @@ export default function PrivacyPolicyPage() {
     <>
       <Navbar />
       <main>
+        <CoveredAppsNotice apps={COVERED_APPS} />
         <SubpageHeader
           label="Legal"
           title="Privacy Policy"
